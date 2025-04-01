@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Item, ItemStatus } from '@prisma/client';
 import { CreateItemDto } from './dto/create-item.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ItemsService {
@@ -50,10 +51,11 @@ export class ItemsService {
     });
   }
 
-  async delete(id: string): Promise<Item | undefined | void> {
+  async delete(id: string, userId: string): Promise<Item | undefined | void> {
     await this.prismaService.item.delete({
       where: {
         id,
+        userId,
       },
     });
   }
